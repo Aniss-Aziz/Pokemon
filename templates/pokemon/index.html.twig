@@ -1,0 +1,17 @@
+{# templates/pokemon/index.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Pokémons</title>
+</head>
+<body>
+<h1>Liste des Pokémon</h1>
+<ul>
+    {% for pokemon in pokemons %}
+        <li>{{ pokemon.name }} - {{ pokemon.type }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
