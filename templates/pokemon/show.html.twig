@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block title %}Détails du Pokémon{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">{{ pokemon.name }}</h2>
+
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{pokemon.imageUrl}}" alt="{{ pokemon.name }}">
+                </div>
+            </div>
+
+
+            <div class="col-md-8">
+                <div class="card border-0">
+                    <div class="card-body border-0">
+                        <p><strong>ID:</strong> {{ pokemon.id }}</p>
+                        <p><strong>Type:</strong> {{ pokemon.type }}</p>
+                        <p><strong>Description:</strong> {{ pokemon.description }}</p>
+                        <a href="{{ path('search') }}" class="btn btn-success mt-3">Retour à la recherche</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

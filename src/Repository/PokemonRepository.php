@@ -50,4 +50,17 @@ class PokemonRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findByCriteria($id)
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+
+        if ($id) {
+            $queryBuilder->andWhere('p.id = :id')
+                ->setParameter('id', $id);
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
 }

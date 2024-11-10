@@ -1,17 +1,65 @@
-{# templates/pokemon/index.html.twig #}
+{% extends 'base.html.twig' %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Liste des Pokémons</title>
-</head>
-<body>
-<h1>Liste des Pokémon</h1>
-<ul>
-    {% for pokemon in pokemons %}
-        <li>{{ pokemon.name }} - {{ pokemon.type }}</li>
-    {% endfor %}
-</ul>
-</body>
-</html>
+{% block title %}Liste des Pokémons{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h2 class="mb-5 text-center">Liste des Pokémons</h2>
+
+        <div class="row">
+            {% for pokemon in pagination %}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ pokemon.imageUrl }}" alt="{{ pokemon.name }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ pokemon.name }}</h5>
+                            <p class="card-text">
+                                <strong>ID:</strong> {{ pokemon.id }}<br>
+                                <strong>Type:</strong> {{ pokemon.type }}
+                            </p>
+                            <a href="{{ path('pokemon_show', {'id': pokemon.id}) }}" class="btn btn-success">Consulter</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center mb-5 ">
+
+                {% if pagination.getCurrentPageNumber() > 1 %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path('home', { 'page': pagination.getCurrentPageNumber() - 1 }) }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo;</span>
+                    </li>
+                {% endif %}
+
+
+                {% for page in 1..pagination.getPageCount() %}
+                    <li class="page-item {% if pagination.getCurrentPageNumber() == page %}active{% endif %}">
+                        <a class="page-link" href="{{ path('home', { 'page': page }) }}">{{ page }}</a>
+                    </li>
+                {% endfor %}
+
+
+                {% if pagination.getCurrentPageNumber() < pagination.getPageCount() %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path('home', { 'page': pagination.getCurrentPageNumber() + 1 }) }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&raquo;</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endblock %}

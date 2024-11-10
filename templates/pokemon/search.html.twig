@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche Pokémon{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 d-flex flex-column align-items-center justify-content-center">
+        <h2 class="mb-4">Rechercher un Pokémon</h2>
+        {% if error_message %}
+
+            <div class="alert alert-danger" role="alert">
+                {{ error_message }}
+            </div>
+        {% endif %}
+
+        <form action="{{ path('search') }}" method="get" class="mb-4 col-md-4">
+            <div class="row">
+                <div class="col-md-12 ">
+                    <label for="id" class="form-label">ID du Pokémon</label>
+                    <input placeholder="Saisissez un identifiant" type="text" id="id" name="id" class="form-control" value="{{ search_id }}">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success mt-3 ">Rechercher</button>
+        </form>
+    </div>
+{% endblock %}
